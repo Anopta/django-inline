@@ -1,39 +1,26 @@
 {% extends 'artist/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
   <div class="row justify-content-center">
     <div class="col-6">
       <div class="card">
         <div class="card-body">
-          <form method="POST" novalidate>
-            {{ artist_form.management_form }}
-            {{ book_formset.management_form }}
-            {{ music_formset.management_form }}
+          <form method="POST">
             {% csrf_token %}
             <div class="form-row">
               <h1>Artist</h1>
               <div class="form-group col-md-12 mb-0">
-                {{ artist_form.as_p }}
+                {{ artist_form|crispy }}
               </div>
             </div>
             <div class="dropdown-divider"></div>
             <h3>Books</h3>
-            {% for book in book_formset %}
-              <div class="form-row">
-                <div class="form-group col-md-12 mb-0">
-                  {{ book.as_p }}
-                </div>
-              </div>
-            {% endfor %}
+              {{ book_formset|crispy }}
             <div class="dropdown-divider"></div>
-            <h3>Music</h3>
-            {% for music in music_formset %}
-              <div class="form-row">
-                <div class="form-group col-md-6 mb-0">
-                  {{ music.as_p }}
-                </div>
-              </div>
-            {% endfor %}
+            <h3>Musics</h3>
+              {{ music_formset|crispy }}
             <button type="submit" class="btn btn-primary mb-3">Save</button>
           </form>
         </div>
